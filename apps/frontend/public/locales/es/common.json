@@ -1,0 +1,12 @@
+{
+  "logo": "CyberPravda",
+  "search": "Buscar",
+  "write": "Escribir",
+  "topicName": "Tema:",
+  "versionName": "Versión:",
+  "pageNotFound": "404 - Página no encontrada",
+  "pageNotFoundDescription": "Lo sentimos, la página que estás buscando no existe.",
+  "backToHome": "Volver a la página de inicio",
+  "shareMsg": "Enlace copiado al portapapeles",
+  "shareMsgError": "No se pudo copiar el enlace al portapapeles"
+}

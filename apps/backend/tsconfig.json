@@ -1,0 +1,8 @@
+{
+  "extends": "@cyberpravda/tsconfig/node.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": "."
+  },
+  "include": ["src/**/*", "tests/**/*", "vitest.config.ts"]
+}

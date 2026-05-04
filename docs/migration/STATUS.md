@@ -1,13 +1,13 @@
 # Migration Status
 
-_Last regenerated: 2026-05-03_
+_Last regenerated: 2026-05-04_
 
 ## Backend phases
 
 | Phase | Title | Status | Owner | Target | Blockers |
 |-------|-------|--------|-------|--------|----------|
 | 00 | Discovery & contract extraction | not-started | — | TBD | — |
-| 01 | Backend bootstrap | in-progress | @rrozanov | TBD | scaffolding only; backend code not yet written |
+| 01 | Backend bootstrap | in-progress | @rrozanov | TBD | All Sprint 0 + BE-001..BE-004 done 2026-05-04. `yarn turbo run lint typecheck test build` is 14/14 green. Frontend builds via `next build --webpack` (Turbopack deferred — see Phase 01 risks). BE-005 (staging deploy) lives in Phase 02. |
 | 02 | Deployment & environment | not-started | — | TBD | depends on 01 |
 | 03 | Clerk integration | not-started | — | TBD | depends on 02 |
 | 04 | PostgreSQL & Drizzle | not-started | — | TBD | depends on 03 |
@@ -27,16 +27,16 @@ _Last regenerated: 2026-05-03_
 | AGENTS.md + CLAUDE.md | done | 2026-05-03 |
 | docs/migration plan + per-phase docs | done | 2026-05-03 |
 | Initial ADRs | done | 0001–0005 captured |
-| Copy frontend → apps/frontend | not-started | next step |
-| Bump Next 15 → 16 | not-started | — |
-| Bump React 18 → 19 | not-started | — |
-| Drop next-i18next | not-started | — |
-| Verify Clerk + Next 16 | not-started | — |
-| Replace start:prod with Turbo task | not-started | — |
-| Create packages/tsconfig | not-started | — |
-| Create packages/eslint-config | not-started | — |
-| Create packages/shared-zod (stub) | not-started | — |
-| Create packages/shared-types (stub) | not-started | — |
+| Copy frontend → apps/frontend | done | 2026-05-04 |
+| Bump Next 15 → 16 | done | 2026-05-04; webpack builder, Turbopack deferred |
+| Bump React 18 → 19 | done | 2026-05-04 |
+| Drop next-i18next | done | 2026-05-04 |
+| Verify Clerk + Next 16 | done | 2026-05-04; build-time placeholder key in next.config.mjs |
+| Replace start:prod with Turbo task | done | 2026-05-04; build → postbuild → start standalone |
+| Create packages/tsconfig | done | 2026-05-04 |
+| Create packages/eslint-config | done | 2026-05-04 |
+| Create packages/shared-zod (stub) | done | 2026-05-04 |
+| Create packages/shared-types (stub) | done | 2026-05-04 |
 
 ## Legend
 

@@ -1,0 +1,11 @@
+{
+  "search": "Search",
+  "find": "Find",
+  "searchLongPromt": "Type here what you want to find",
+  "searchArgumentPromt": "Type your search...",
+  "notFound": "No topics found",
+  "tryToAdjust": "Try adjusting your search or filter criteria.",
+  "tabsSearchGlobal": "Global",
+  "tabsSearchTopic": "Topic quotes",
+  "tabsSearchSaved": "My saved"
+}

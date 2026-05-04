@@ -1,0 +1,23 @@
+.masonry {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow: hidden;
+}
+
+.item {
+  list-style: none;
+  max-width: 100%;
+  
+}

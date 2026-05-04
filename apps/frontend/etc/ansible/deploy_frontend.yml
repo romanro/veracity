@@ -1,0 +1,130 @@
+# === Step 1: Clone and Prepare Frontend ===
+- name: Clone and prepare Frontend Stand
+  hosts: '{{ build_host }}'
+  become: false
+  become_user: service-manager
+  gather_facts: false
+  vars:
+    is_prod: '{{ prod_mode | default(false) | bool }}'
+    update_version: '{{ tag_name | default("main") }}'
+  vars_files:
+    - vars/vars.yml
+    - vars/git.yml
+
+  tasks:
+    # Remove delegate_to: the play runs on build_host already
+    - name: Remove package-lock.json to avoid Yarn conflict
+      ansible.builtin.file:
+        path: '{{ git_dest }}/package-lock.json'
+        state: absent
+
+    - name: Update repository to '{{ update_version }}'
+      import_tasks: include/git_handler.yml
+
+    - name: Ensure .env.local exists with env vars
+      ansible.builtin.template:
+        src: 'vars/.env.local.j2'
+        dest: '{{ git_dest }}/.env.local'
+        mode: '0644'
+      vars:
+        # Uncomment and set if needed
+        # NEXT_PUBLIC_CLERK_FRONTEND_API: "{{ lookup('env', 'NEXT_PUBLIC_CLERK_FRONTEND_API') }}"
+        NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: "{{ lookup('env', 'NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY') }}"
+        NEXT_PUBLIC_CLERK_SECRET_KEY: "{{ lookup('env', 'CLERK_API_KEY') }}"
+        # NEXT_PUBLIC_CLERK_REDIRECT_URI: "{{ lookup('env', 'CLERK_REDIRECT_URI') }}"
+        CLERK_ENVIRONMENT: "{{ lookup('env', 'CLERK_ENVIRONMENT') }}"
+
+    - name: Ensure .env.local exists
+      ansible.builtin.stat:
+        path: '{{ git_dest }}/.env.local'
+      register: env_file_status
+
+    - name: Debug .env.local presence
+      ansible.builtin.debug:
+        var: env_file_status.stat.exists
+
+    - name: Install Node.js (via NVM), Yarn (via Corepack), dependencies, and build
+      ansible.builtin.shell: |
+        set -euxo pipefail
+        export NVM_DIR="$HOME/.nvm"
+
+        if [ ! -d "$NVM_DIR" ]; then
+          mkdir -p "$NVM_DIR"
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+        fi
+
+        # Load profile if exists (simulate login shell)
+        if [ -f "$HOME/.bash_profile" ]; then
+          . "$HOME/.bash_profile"
+        elif [ -f "$HOME/.profile" ]; then
+          . "$HOME/.profile"
+        fi
+
+        . "$NVM_DIR/nvm.sh"
+
+        if ! nvm ls 20.9.0 >/dev/null 2>&1; then
+          nvm install 20.9.0
+        fi
+
+        nvm alias default 20.9.0
+        nvm use default
+
+        corepack enable
+        corepack prepare yarn@stable --activate
+
+        cd "{{ git_dest }}"
+
+        yarn install --immutable
+        NODE_ENV=production yarn build
+      args:
+        executable: /bin/bash
+      register: build_result
+      failed_when: build_result.rc != 0
+      changed_when: build_result.rc == 0
+
+    - name: Show build stdout
+      ansible.builtin.debug:
+        var: build_result.stdout_lines
+
+    - name: Show build stderr
+      ansible.builtin.debug:
+        var: build_result.stderr_lines
+
+# === Step 2: Restart the Frontend Service ===
+- name: Run Frontend Stand(v2)
+  hosts: '{{ build_host }}'
+  become: true
+  become_user: service-manager
+  gather_facts: false
+  vars:
+    is_prod: '{{ prod_mode | default(false) | bool }}'
+    update_version: "{{ tag_name | default('main') }}"
+  vars_files:
+    - vars/vars.yml
+    - vars/git.yml
+  tasks:
+    - name: Restart the server(v2)
+      tags:
+        - restart
+      block:
+        - name: Restart web service(v2)
+          ansible.builtin.command: sudo systemctl restart cyberpravda-web-frontend-new.service
+          register: restart_result
+          changed_when: true
+          failed_when: restart_result.rc != 0
+
+    # === Step 3: Check after restart ===
+    - name: Check service status
+      ansible.builtin.systemd:
+        name: cyberpravda-web-frontend-new.service
+      register: status_result
+
+    - name: Show service status
+      ansible.builtin.debug:
+        var: status_result.status.ActiveState
+
+    - name: Wait for frontend port to be open
+      ansible.builtin.wait_for:
+        port: 6062
+        delay: 2
+        timeout: 15

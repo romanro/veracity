@@ -1,0 +1,40 @@
+.reorderDropZone {
+  height: 4px;
+  width: 100%;
+  margin: 2px 0;
+  position: relative;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  opacity: 0.2;
+  background: var(--color-yellow-100);
+
+  &.visible {
+    opacity: 0.5;
+    background: var(--color-yellow-200);
+  }
+
+  &.active {
+    height: 30px;
+    opacity: 1;
+    background: var(--color-yellow-50);
+    border: 1px dashed var(--color-yellow-300);
+  }
+
+  .dropIndicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    position: relative;
+  }
+
+  .dropText {
+    background: var(--color-yellow-500);
+    color: var(--color-light-50);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    z-index: 1;
+  }
+}

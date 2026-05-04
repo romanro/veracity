@@ -1,0 +1,6 @@
+---
+build_host: cyberpravda.dev
+frontend_port: 6062 # next -p 6062
+frontend_runtime_direction: /srv/service-stable/frontend/run
+SERVER_API_BASE_URL: 'https://new.cyberpravda.dev/api'
+NEXT_HTTP_URL: 'https://new.cyberpravda.dev'

@@ -1,0 +1,15 @@
+.button {
+  color: var(--color-tertiary-text);
+  background-color: var(--color-tertiary-bg);
+  transition: background-color 0.2s ease;
+  padding: 0.5rem;
+  min-width: 80px;
+  border: 1px solid var(--color-tertiary-pressed);
+  :hover {
+    background-color: var(--color-tertiary-hover);
+  }
+
+  &:active {
+    background-color: var(--color-tertiary-pressed);
+  }
+}

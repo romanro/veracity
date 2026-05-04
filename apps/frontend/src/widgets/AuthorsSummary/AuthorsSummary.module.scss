@@ -1,0 +1,11 @@
+.authorsList {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+
+  .listItem {
+    margin-right: -3px;
+    .ava {
+      border: 1px solid #fff;
+    }
+  }
+}

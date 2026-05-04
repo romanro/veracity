@@ -1,0 +1,16 @@
+.titleThemeVersion {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  color: var(--color-gray-warm-400);
+  text-wrap: wrap;
+}
+
+.textName {
+  font-family: var(--font-body);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-gray-warm-400);
+}

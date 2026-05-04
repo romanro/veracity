@@ -1,0 +1,23 @@
+.summary {
+  h6 {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
+    overflow-wrap: break-word;
+  }
+
+  p {
+    overflow-wrap: break-word;
+  }
+  .reliabilityGray {
+    color: var(--color-gray-500);
+  }
+
+  .reliabilityOrange {
+    color: var(--color-orange-300);
+  }
+
+  .reliabilitySuccess {
+    color: var(--color-success-300);
+  }
+}

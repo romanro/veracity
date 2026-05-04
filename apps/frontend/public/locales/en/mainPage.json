@@ -1,0 +1,30 @@
+{
+  "title": "CyberPravda",
+  "subtitle": "The place where you can see multiple versions on one topic / event, and see which version is the most reliable",
+  "hideBlock": "Hide service description",
+  "showBlock": "Show service description",
+  "menuNews": "News",
+  "menuLatest": "Latest",
+  "menuHot": "Hot",
+  "menuSave": "My save",
+  "infoBlocks": {
+    "infoBlock1": {
+      "title": "Test Some title 1",
+      "text": "Test Some text",
+      "footerTitle": "Footer title",
+      "footerText": "Footer text"
+    },
+    "infoBlock2": {
+      "title": "Some title 2",
+      "text": "Some text",
+      "footerTitle": "Footer title",
+      "footerText": "Footer text"
+    },
+    "infoBlock3": {
+      "title": "Some title 3",
+      "text": "Some text",
+      "footerTitle": "Footer title",
+      "footerText": "Footer text"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+# Root .dockerignore — applied when building from repo root
+**/node_modules
+**/dist
+**/.next
+**/.turbo
+**/coverage
+.git
+.github
+docs
+**/.env
+**/.env.*
+!**/.env.example
+**/*.log
+.DS_Store
+.idea
+.vscode

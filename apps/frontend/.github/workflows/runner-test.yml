@@ -1,0 +1,16 @@
+name: Runner test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: [self-hosted]
+    steps:
+      - name: Who am I
+        run: |
+          whoami
+          pwd
+
+      - name: Node check
+        run: bash -lc "which node && node -v && npm -v"

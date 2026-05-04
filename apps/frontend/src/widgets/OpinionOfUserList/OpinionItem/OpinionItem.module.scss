@@ -1,0 +1,37 @@
+.opinionItem{
+    &::after{
+        content: '';
+        background: var(--color-gray-warm-200);
+        z-index: -1;
+    }
+
+   &.text{
+    .opinionItemTitle{
+        font-size: var(--font-size-base);
+    }
+   }
+
+   &.heading1{
+    .opinionItemTitle{
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-medium);
+    }
+   }
+
+   &.heading2{
+    .opinionItemTitle{
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-medium);
+    }
+   }
+
+   &.heading3{
+    .opinionItemTitle{
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-medium);
+    }
+   }
+    .opinionItemTitle{
+        font-size: var(--font-size-base);
+    }
+}

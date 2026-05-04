@@ -1,0 +1,57 @@
+{
+  "steps": [
+    {
+      "created": "Tema creado",
+      "title": "Crear tema",
+      "description": "Por ejemplo: 'Forma de la Tierra'"
+    },
+    {
+      "created": "Versión creada",
+      "title": "Crear versión del tema",
+      "description": "Como 'La Tierra es redonda'"
+    },
+    {
+      "title": "Elegir o escribir argumentos",
+      "description": "Cuenta tu verdad sobre tu versión"
+    }
+  ],
+  "createNewTopic": "Crear nuevo tema",
+  "selectedTopic": "Tema seleccionado",
+  "topic": "Tema",
+  "topicHint": "El título del tema debe ser lo más generalizado posible, mientras que los detalles específicos deben indicarse en la versión. Por ejemplo: '11-S, ¿Quién fue?'.",
+  "topicPlaceholder": "Escribe aquí tu tema sobre lo que quieres decir",
+  "next": "Siguiente",
+  "cancel": "Cancelar",
+  "version": "Versión",
+  "createNewVersion": "Crear una nueva versión en el tema",
+  "selectedVersion": "Versión seleccionada del tema",
+  "versionHint": "Este es un texto de ayuda para guiar al usuario.",
+  "versionTitlePlaceholder": "Escribe aquí el título de tu versión...",
+  "versionDescPlaceholder": "Escribe aquí la descripción de tu versión (opcional)...",
+  "topicVersionError": "Selecciona o crea primero el Tema y la Versión...",
+  "topicError": "El tema debe contener al menos 10 caracteres",
+  "versionError": "La versión debe contener al menos 10 caracteres",
+  "createOpinionOnVersion": "Versión",
+  "inTheme": "Tema",
+  "publish": "Publicar mi opinión en esta versión",
+  "publishing": "Publicando...",
+  "publishSuccess": "¡Opinión publicada exitosamente!",
+  "publishErrorMissingData": "No se puede publicar: faltan datos requeridos",
+  "publishErrorFailed": "Error al publicar la opinión. Por favor, inténtalo de nuevo.",
+  "publishErrorNotSignedIn": "Por favor, inicia sesión para publicar tu opinión",
+  "publishErrorDisabled": "La opinión debe contener al menos un argumento completo",
+  "quoteLibrary": "Biblioteca de citas",
+  "newTextEntityPromt": "Escribir un argumento más",
+  "discardChangesTitle": "¿Descartar cambios?",
+  "discardChangesMessage": "Tienes cambios sin guardar. ¿Estás seguro de que quieres salir?",
+  "draggingArgument": "Arrastrando argumento: {{title}}",
+  "movingNode": "Moviendo nodo {{nodeType}}",
+  "movingNodeText": "Moviendo: nodo {{nodeType}}",
+  "argumentNode": "Argumento",
+  "textNode": "Texto",
+  "nodeType": "{{type}}",
+  "dropHereToReorder": "Suelta aquí para reordenar",
+  "tabsLibrarySuggestions": "Sugerencias",
+  "tabsLibraryTopic": "Citas del tema",
+  "tabsLibrarySaved": "Mis guardados"
+}

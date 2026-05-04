@@ -1,0 +1,3 @@
+---
+git_repo: https://{{ lookup('env','GITHUB_PAT') }}@github.com/CyberPravda/cyberpravda-frontend-new.git
+git_dest: /srv/service-stable/frontend/source-code

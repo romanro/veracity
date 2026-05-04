@@ -1,0 +1,10 @@
+{
+  "search": "Buscar",
+  "find": "Encontrar",
+  "searchLongPromt": "Escribe aquí lo que quieres encontrar",
+  "searchArgumentPromt": "Escribe su solicitud...",
+  "tryToAdjust": "Intente ajustar sus criterios de búsqueda o filtro",
+  "tabsSearchGlobal": "Global",
+  "tabsSearchTopic": "Temas populares",
+  "tabsSearchSaved": "Mis guardados"
+}

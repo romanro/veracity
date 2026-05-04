@@ -1,0 +1,68 @@
+// Heading-specific styles only - base styles are in NodeBase.module.scss
+.headingNode {
+  min-height: 100px;
+
+  .toolbutton {
+    cursor: pointer;
+    position: absolute;
+    background: var(--color-neutral-400);
+    top: 44px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-gray-warm-50);
+    border-radius: 50%;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.12s;
+    &:hover {
+      background: var(--color-neutral-700);
+    }
+  }
+
+  &:hover {
+    .toolbutton {
+      opacity: 1;
+    }
+  }
+
+  &.editing {
+    .toolbutton {
+      opacity: 0;
+    }
+  }
+
+  .heading {
+    font-weight: var(--font-weight-medium);
+    width: 100%;
+    &.heading1 {
+      font-size: var(--font-size-xl);
+    }
+    &.heading2 {
+      font-size: var(--font-size-lg);
+    }
+    &.heading3 {
+      font-size: var(--font-size-md);
+    }
+    &.heading4 {
+      font-size: var(--font-size-md);
+    }
+    &.heading5 {
+      font-size: var(--font-size-md);
+    }
+  }
+
+  .textarea {
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .children {
+    grid-column: 1 / -1;
+    min-height: 1rem;
+  }
+}

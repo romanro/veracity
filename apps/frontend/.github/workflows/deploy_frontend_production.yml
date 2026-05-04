@@ -1,0 +1,58 @@
+name: Run deploy frontend notebook on the webserver
+on:
+  push:
+    branches:
+      - main-del
+jobs:
+  deploy:
+    name: Deploy frontend web-service on Production
+    concurrency:
+      group: dev
+      cancel-in-progress: true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure SSH
+        env:
+          SSH_USER: ${{ secrets.DEPLOY_SSH_USER }}
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.DEPLOY_SSH_HOST }}
+          NEXT_PUBLIC_CLERK_API_KEY: ${{ secrets.CLERK_SK }}
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{secrets.CLERK_PK}}
+          NEXT_PUBLIC_CLERK_FRONTEND_API: ${{ secrets.NEXT_PUBLIC_CLERK_FRONTEND_API }}
+          CLERK_API_KEY: ${{ secrets.CLERK_SK }}
+          CLERK_FRONTEND_API: ${{ secrets.CLERK_FRONTEND_API }}
+          CLERK_REDIRECT_URI: ${{ secrets.CLERK_REDIRECT_URI }}
+          CLERK_ENVIRONMENT: ${{ secrets.CLERK_ENVIRONMENT }}
+          NEXT_HTTP_URL: ${{ secrets.NEXT_HTTP_URL }}
+          CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+        run: |
+          echo "NEXT_HTTP_URL=$NEXT_HTTP_URL" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY" >> $GITHUB_ENV
+          echo "CLERK_API_KEY=$CLERK_API_KEY" >> $GITHUB_ENV
+          echo "CLERK_FRONTEND_API=$CLERK_FRONTEND_API" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_CLERK_FRONTEND_API=$NEXT_PUBLIC_CLERK_FRONTEND_API" >> $GITHUB_ENV
+          echo "CLERK_REDIRECT_URI=$CLERK_REDIRECT_URI" >> $GITHUB_ENV
+          echo "CLERK_ENVIRONMENT=$CLERK_ENVIRONMENT" >> $GITHUB_ENV
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_2301
+          chmod 600 ~/.ssh/id_2301
+          # Add the remote host key for SSH on custom port 2242 to known_hosts
+          ssh-keyscan -p 2242 $SSH_HOST >> ~/.ssh/known_hosts
+          cat >>~/.ssh/config <<END
+          Host $SSH_HOST
+              User $SSH_USER
+              StrictHostKeyChecking no
+              IdentityFile ~/.ssh/id_2301
+              Port 2242
+              LogLevel ERROR
+          END
+
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Run Ansible playbook
+        env:
+          GITHUB_PAT: ${{ secrets.PAT }} # so Ansible lookup works
+          GIT_ASKPASS: /bin/echo
+          GIT_SSH_COMMAND: 'ssh -i ~/.ssh/id_2301 -p 2242 -o StrictHostKeyChecking=no'
+        run: ansible-playbook -i etc/ansible/inventory etc/ansible/deploy_frontend.yml -e tag_name=$GITHUB_REF_NAME -vvv

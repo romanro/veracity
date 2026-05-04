@@ -1,0 +1,19 @@
+@keyframes pulseBlur {
+  0%,
+  100% {
+    filter: blur(0px);
+    transform: scale(1);
+  }
+  50% {
+    filter: blur(3px);
+    transform: scale(1.1);
+  }
+}
+
+.dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ff6a00 0%, #ff3c38 40%, #ffd479 100%);
+  animation: pulseBlur 3s ease-in-out infinite;
+}

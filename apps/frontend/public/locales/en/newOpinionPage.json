@@ -1,0 +1,57 @@
+{
+  "steps": [
+    {
+      "created": "Topic created",
+      "title": "Create topic",
+      "description": "For example: 'Earth form'"
+    },
+    {
+      "created": "Version created",
+      "title": "Create version of the topic",
+      "description": "Like 'Earth is round'"
+    },
+    {
+      "title": "Choose or write arguments",
+      "description": "Tell your truth to your version"
+    }
+  ],
+  "createNewTopic": "Create new topic",
+  "selectedTopic": "Selected topic",
+  "topic": "Topic",
+  "topicHint": "The title of the topic should be as generalized as possible, while the specifics should be indicated in the version. For example: '9/11, Who was it?'.",
+  "topicPlaceholder": "Type here your topic about what you want to say",
+  "next": "Next",
+  "cancel": "Cancel",
+  "version": "Version",
+  "createNewVersion": "Create the new one version in the topic",
+  "selectedVersion": "Selected version on topic",
+  "versionHint": "This is a hint text to help user.",
+  "versionTitlePlaceholder": "Type here your version title...",
+  "versionDescPlaceholder": "Type here your version description (optional)...",
+  "topicVersionError": "Select or create Topic and Version first...",
+  "topicError": "Topic must contain at least 10 characters",
+  "versionError": "Version must contain at least 10 characters",
+  "createOpinionOnVersion": "Version",
+  "inTheme": "Topic",
+  "publish": "Publish my opinion to this version",
+  "publishing": "Publishing...",
+  "publishSuccess": "Opinion published successfully!",
+  "publishErrorMissingData": "Unable to publish: missing required data",
+  "publishErrorFailed": "Failed to publish opinion. Please try again.",
+  "publishErrorNotSignedIn": "Please sign in to publish your opinion",
+  "publishErrorDisabled": "Opinion must contain at least one complete argument",
+  "quoteLibrary": "Quote library",
+  "newTextEntityPromt": "Write one more argument",
+  "discardChangesTitle": "Discard changes?",
+  "discardChangesMessage": "You have unsaved changes. Are you sure you want to leave?",
+  "draggingArgument": "Dragging argument: {{title}}",
+  "movingNode": "Moving {{nodeType}} node",
+  "movingNodeText": "Moving: {{nodeType}} node",
+  "argumentNode": "Argument",
+  "textNode": "Text",
+  "nodeType": "{{type}}",
+  "dropHereToReorder": "Drop here to reorder",
+  "tabsLibrarySuggestions": "Suggestions",
+  "tabsLibraryTopic": "Topic quotes",
+  "tabsLibrarySaved": "My saved"
+}

@@ -1,0 +1,191 @@
+name: Deploy frontend
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    env:
+      NODE_ENV: production
+      
+      # Clerk Configuration
+      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+      NEXT_PUBLIC_CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+      CLERK_API_KEY: ${{ secrets.CLERK_API_KEY }}
+      CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+      CLERK_FRONTEND_API: ${{ secrets.CLERK_FRONTEND_API }}
+      NEXT_PUBLIC_CLERK_FRONTEND_API: ${{ secrets.NEXT_PUBLIC_CLERK_FRONTEND_API }}
+      CLERK_REDIRECT_URI: ${{ secrets.CLERK_REDIRECT_URI }}
+      CLERK_ENVIRONMENT: ${{ secrets.CLERK_ENVIRONMENT }}
+      
+      # Application Configuration
+      NEXT_HTTP_URL: ${{ secrets.NEXT_HTTP_URL }}
+
+    steps:
+      # === Step 1: Checkout ===
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # === Step 2: Ensure Node 20.19.5 via nvm ===
+      - name: Setup Node 20.19.5
+        run: |
+          bash -lc '
+            export NVM_DIR="$HOME/.nvm"
+            source "$NVM_DIR/nvm.sh"
+
+            if ! nvm ls 20.19.5 >/dev/null 2>&1; then
+              nvm install 20.19.5
+            fi
+
+            nvm use 20.19.5
+            nvm alias default 20.19.5
+
+            node -v
+            npm -v
+          '
+
+      # === Step 3: Prepare env ===
+      # .env.local is loaded by systemd (EnvironmentFile). CLERK_SECRET_KEY and other Clerk vars
+      # are required for production auth; without them, post-login redirects can return 500.
+      - name: Generate .env.local
+        run: |
+          cat > .env.local <<EOF
+          # Clerk Configuration
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+          NEXT_PUBLIC_CLERK_SECRET_KEY=${NEXT_PUBLIC_CLERK_SECRET_KEY}
+          CLERK_API_KEY=${CLERK_API_KEY}
+          CLERK_SECRET_KEY=${CLERK_SECRET_KEY}
+          CLERK_FRONTEND_API=${CLERK_FRONTEND_API}
+          NEXT_PUBLIC_CLERK_FRONTEND_API=${NEXT_PUBLIC_CLERK_FRONTEND_API}
+          CLERK_REDIRECT_URI=${CLERK_REDIRECT_URI}
+          CLERK_ENVIRONMENT=${CLERK_ENVIRONMENT}
+          
+          # Application Configuration
+          NEXT_HTTP_URL=${NEXT_HTTP_URL}
+          EOF
+
+      - name: Show env file (safe)
+        run: |
+          grep -v KEY .env.local || true
+
+      # === Step 4: Remove package-lock ===
+      - name: Remove package-lock.json
+        run: rm -f package-lock.json
+
+      # === Step 5: Yarn install + build ===
+      # Standalone server does not include public/ or .next/static; copy them so static assets
+      # and i18n locale files (public/locales) are available in production.
+      - name: Install deps and build
+        run: |
+          bash -lc '
+            corepack enable
+            corepack prepare yarn@4.9.2 --a
+            yarn install
+            yarn build
+            cp -r public .next/standalone/
+            cp -r .next/static .next/standalone/.next/
+          '
+
+      # === Step 7: Restart service ===
+      - name: Restart frontend service
+        continue-on-error: true
+        id: restart-service
+        run: |
+          sudo -n /bin/systemctl restart veraciti-frontend.service        
+          if sudo -n systemctl status cyberpravda-web-frontend-new.service 2>/dev/null; then
+            echo "✓ Service restarted successfully"
+            echo "status=success" >> $GITHUB_OUTPUT
+          else
+            echo "⚠ Cannot restart service automatically (no sudo access)"
+            echo "status=manual" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+      # === Step 8: Check service status ===
+      - name: Check service status
+        if: steps.restart-service.outputs.status == 'success'
+        run: |
+          if systemctl is-active --quiet cyberpravda-web-frontend-new.service; then
+            echo "✓ Service is active"
+            systemctl status cyberpravda-web-frontend-new.service --no-pager || true
+          else
+            echo "✗ Service is not active"
+            systemctl status cyberpravda-web-frontend-new.service --no-pager || true
+            exit 1
+          fi
+
+      # === Step 9: Wait for port ===
+      - name: Wait for frontend port
+        if: steps.restart-service.outputs.status == 'success'
+        run: |
+          echo "Waiting for port 6062 to open..."
+          for i in {1..30}; do
+            if ss -ltn | grep -q ':6062'; then
+              echo "✓ Port 6062 is up and listening"
+              exit 0
+            fi
+            echo "Attempt $i/30: Port not ready yet..."
+            sleep 2
+          done
+          echo "✗ Port 6062 did not open in time"
+          echo "Attempting to show service logs..."
+          if sudo -n journalctl -u cyberpravda-web-frontend-new.service -n 50 --no-pager 2>/dev/null; then
+            echo "Service logs shown above"
+          else
+            echo "⚠ Cannot access service logs (no sudo access)"
+            echo "⚠ Check logs manually: sudo journalctl -u cyberpravda-web-frontend-new.service -n 50"
+          fi
+          exit 1
+
+      # === Step 10: Health check ===
+      - name: Verify deployment
+        if: steps.restart-service.outputs.status == 'success'
+        run: |
+          echo "Testing HTTP endpoint..."
+          for i in {1..5}; do
+            if curl -sf http://localhost:6062 > /dev/null; then
+              echo "✓ Frontend is responding"
+              exit 0
+            fi
+            echo "Attempt $i/5: Endpoint not ready..."
+            sleep 2
+          done
+          echo "✗ Frontend health check failed"
+          exit 1
+
+      # === Step 11: Manual deployment instructions ===
+      - name: Manual deployment required
+        if: steps.restart-service.outputs.status == 'manual'
+        run: |
+          echo "╔════════════════════════════════════════════════════════════════╗"
+          echo "║  ✓ BUILD SUCCESSFUL - Manual Service Restart Required         ║"
+          echo "╚════════════════════════════════════════════════════════════════╝"
+          echo ""
+          echo "The application has been built successfully in production mode!"
+          echo "However, the service needs to be restarted manually."
+          echo ""
+          echo "To complete the deployment, run these commands on the server:"
+          echo ""
+          echo "1. Update the service file (if changed):"
+          echo "   sudo cp etc/systemctl/cyberpravda-frontend-production.service \\"
+          echo "           /etc/systemd/system/cyberpravda-web-frontend-new.service"
+          echo "   sudo systemctl daemon-reload"
+          echo ""
+          echo "2. Restart the service:"
+          echo "   sudo systemctl restart cyberpravda-web-frontend-new.service"
+          echo ""
+          echo "3. Verify the service is running:"
+          echo "   systemctl status cyberpravda-web-frontend-new.service"
+          echo ""
+          echo "4. Check the application:"
+          echo "   curl http://localhost:6062"
+          echo ""
+          echo "─────────────────────────────────────────────────────────────────"
+          echo "To avoid manual steps in future, configure passwordless sudo:"
+          echo "  sudo visudo"
+          echo "  Add: YOUR_USER ALL=(ALL) NOPASSWD: /bin/systemctl restart cyberpravda-web-frontend-new.service"
+          echo "─────────────────────────────────────────────────────────────────"

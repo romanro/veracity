@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://new.cyberpravda.dev
+
+# Sitemaps
+Sitemap: https://new.cyberpravda.dev/sitemap.xml

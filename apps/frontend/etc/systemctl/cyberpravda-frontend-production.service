@@ -1,0 +1,25 @@
+[Unit]
+Description=cyberpravda-new web frontend service
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5s
+User=service-manager
+Group=service-manager
+WorkingDirectory=/srv/service-stable/frontend/source-code
+# EnvironmentFile must include CLERK_SECRET_KEY and other Clerk vars for auth; deploy generates .env.local
+EnvironmentFile=/srv/service-stable/frontend/source-code/.env.local
+Environment="PORT=6062"
+Environment="HOST=0.0.0.0"
+Environment="NODE_ENV=production"
+
+ExecStart=/usr/bin/node /srv/service-stable/frontend/source-code/.next/standalone/server.js
+
+RuntimeDirectory=cyberpravda-new
+ExecStartPost=/bin/sh -c 'echo $MAINPID > /run/cyberpravda-new/frontend.pid'
+ExecStopPost=/bin/rm -f /run/cyberpravda-new/frontend.pid
+
+[Install]
+WantedBy=multi-user.target

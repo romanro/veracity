@@ -1,0 +1,33 @@
+.color-green {
+  background-color: #dcfae6;
+}
+
+.color-red {
+  background-color: #ffe6d5;
+}
+
+.color-green-active {
+  background-color: #40c06b;
+}
+
+.color-red-active {
+  background-color: #ff9c66;
+}
+
+.item {
+  width: 8px;
+  height: 24px;
+  border-radius: 8px;
+  margin-right: 4px;
+}
+
+.indicator {
+  display: flex;
+  flex-direction: row;
+  height: 45px;
+  margin-top: 20px;
+}
+
+.flex-grow {
+  flex: 1;
+}

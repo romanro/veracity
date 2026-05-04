@@ -1,0 +1,29 @@
+.titleText {
+  color: var(--colors-gray-warm-950);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-style: var(--font-style-regular);
+  font-size: var(--font-size-md-plus);
+  line-height: var(--line-height-relaxed);
+  word-break: break-all;
+  letter-spacing: 0%;
+}
+
+.descriptionText {
+  color: var(--colors-gray-warm-900);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-style: var(--font-style-regular);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  word-break: break-all;
+  letter-spacing: 0%;
+}
+
+.topicCard {
+  padding: 0.5rem;
+}
+
+.imageWrapper {
+  width: auto !important;
+}

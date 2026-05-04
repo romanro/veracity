@@ -1,0 +1,63 @@
+.topicContainer {
+  height: 172px;
+  width: 700px;
+  display: flex;
+  padding: 2.75rem 0 1.5rem 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.topicLink {
+  display: inline-grid;
+  row-gap: 0.5rem;
+  grid-template-rows: repeat(2, fit-content(100%));
+  grid-template-columns: repeat(1, fit-content(100%));
+}
+
+.topicTextName {
+  grid-row: 1 / span 1;
+  grid-column: 1 / span 1;
+  color: var(--color-neutral-400-new);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-style: var(--font-style-regular);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-compact);
+}
+.topicTextNameCenter {
+  text-align: center;
+}
+
+.topicTextTitle {
+  width: 39.3125rem;
+  height: 2rem;
+  align-self: MIN;
+  grid-row: 2 / span 1;
+  grid-column: 1 / span 1;
+  justify-self: MIN;
+
+  color: var(--color-primary-black-text);
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: var(--font-size-lg-plus);
+  font-style: var(--font-style-regular);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-loose);
+}
+
+.topicTextVersions {
+  display: flex;
+  width: 43.75rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-neutral-400-new);
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs-plus);
+  font-style: var(--font-style-regular);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-compact);
+}

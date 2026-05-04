@@ -1,0 +1,32 @@
+.nameColor {
+  text-align: center;
+  color: var(--color-gray-warm-text);
+}
+
+.pageOpinionTheme {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  text-align: left;
+}
+
+.opinionVersion {
+  font-family: var(--font-body);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-loose);
+  margin-bottom: 22px;
+  text-align: left;
+  padding-left: 12px;
+  color: var(--color-primary-black-text);
+}
+
+.bottonsOpinion {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}

@@ -1,0 +1,30 @@
+{
+  "title": "КиберПравда",
+  "subtitle": "Место, где вы можете увидеть несколько версий по одной теме/событию и узнать, какая версия самая достоверная",
+  "hideBlock": "Скрыть описание услуги",
+  "showBlock": "Показать описание услуги",
+  "menuNews": "Новости",
+  "menuLatest": "Последние",
+  "menuHot": "Горячие",
+  "menuSave": "Мои сохранения",
+  "infoBlocks": {
+    "infoBlock1": {
+      "title": "Some title 1",
+      "text": "Some text",
+      "footerTitle": "Footer title",
+      "footerText": "Footer text"
+    },
+    "infoBlock2": {
+      "title": "Some title 2",
+      "text": "Some text",
+      "footerTitle": "Footer title",
+      "footerText": "Footer text"
+    },
+    "infoBlock3": {
+      "title": "Some title 3",
+      "text": "Some text",
+      "footerTitle": "Footer title",
+      "footerText": "Footer text"
+    }
+  }
+}

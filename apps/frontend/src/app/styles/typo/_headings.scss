@@ -1,0 +1,29 @@
+h1.pageHeader {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-neutral-950);
+  line-height: var(--line-height-relaxed);
+  user-select: none;
+  text-align: center;
+  margin: 0;
+}
+
+h2.pageHeader {
+  font-family: var(--font-body);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-neutral-900);
+  line-height: var(--line-height-normal);
+  user-select: none;
+  text-align: center;
+  margin: 0;
+}
+
+h2.cardHeader {
+  font-family: var(--font-family-font-body, Inter);
+  font-size: var(--font-size-display-md, 20px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--line-height-display-md, 28px);
+}

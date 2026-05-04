@@ -1,0 +1,56 @@
+.stepItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  border-radius: 20px;
+  width: 100%;
+  height: var(--stepper-step-height);
+  max-height: var(--stepper-step-height);
+  overflow: hidden;
+
+  &:hover {
+    background: var(--color-secondary-hover);
+  }
+
+  .stepNumber {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-bg-primary);
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--color-neutral-200);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-md);
+    line-height: var(--line-height-normal);
+
+    &.active {
+      background-color: var(--color-tertiary-bg);
+      color: var(--color-text-primary);
+      box-shadow: var(--shadow-card);
+    }
+
+    &.completed {
+      background-color: var(--color-success-500);
+      color: var(--color-light-50);
+    }
+  }
+
+  .stepContent {
+    flex: 1;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    font-size: var(--font-size-sm);
+    text-align: left;
+
+    h3 {
+      color: var(--color-text-primary);
+    }
+
+    p {
+      color: var(--color-text-secondary);
+    }
+  }
+}

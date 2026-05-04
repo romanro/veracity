@@ -1,0 +1,15 @@
+.topicCard {
+  max-height: 300px;
+
+  .imageArgument {
+    border-radius: 12px;
+    width: 100% !important;
+  }
+
+  .cardContent {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    padding: 1rem;
+  }
+}

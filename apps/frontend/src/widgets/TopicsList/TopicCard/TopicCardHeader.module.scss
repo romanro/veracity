@@ -1,0 +1,15 @@
+.hederH5 {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-secondary);
+  overflow-wrap: break-word;
+}
+
+.title {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin-top: 0.5rem;
+  display: inline-block;
+  overflow-wrap: break-word;
+}

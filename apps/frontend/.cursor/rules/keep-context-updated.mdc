@@ -1,0 +1,52 @@
+---
+description: Keep project-context.mdc up to date after structural changes
+globs:
+alwaysApply: true
+---
+
+# Keep Project Context Updated
+
+After completing any task that changes the project structure, you MUST update `.cursor/rules/project-context.mdc` to reflect those changes. This keeps the context file accurate for all future sessions.
+
+## When to Update
+
+Update the context file when any of these happen during a session:
+
+- **New dependency** added or major version bumped in `package.json`
+- **New directory or layer** created under `src/` (e.g. a new folder in `widgets/`, a new API class, a new Redux slice, a new provider)
+- **New route** added under `src/app/[locale]/`
+- **New i18n namespace** added
+- **New environment variable** introduced
+- **Architecture pattern changed** (e.g. switching from Redux to Zustand for a slice, adding a test framework, adding a CMS)
+- **Styling approach changed** (e.g. new design tokens, new utility classes in globals)
+- **New CI/CD workflow** or deployment change
+- **New naming convention** established or existing one changed
+- **New path alias** added to `tsconfig.json` / `next.config.mjs`
+
+## How to Update
+
+1. Open `.cursor/rules/project-context.mdc`
+2. Edit **only the relevant section(s)** — do not rewrite the entire file
+3. Keep the same structure and formatting style
+4. Be precise: add the specific new item, don't use vague descriptions
+
+## Examples
+
+| Change made                              | Section to update                                                                          |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Added `zustand`                          | **Tech Stack** — add line; **Architecture** if new store pattern                           |
+| Created `src/widgets/NewFeature/`        | **Architecture** tree diagram                                                              |
+| Added `/profile` route                   | **Routing** section                                                                        |
+| Added `NEXT_PUBLIC_ANALYTICS_ID` env var | **Key Env Variables**                                                                      |
+| Added Vitest + testing setup             | **Tech Stack**, **Formatting & Linting** (remove "No test suite"), add **Testing** section |
+| New API class `SearchApi`                | **Architecture** → `core/api/` description                                                 |
+| New i18n namespace `profilePage`         | **i18n** → Namespaces list                                                                 |
+| New Redux slice `searchSlice`            | **Architecture** → `store/` description                                                    |
+
+## Do NOT Update For
+
+- Simple component additions within existing directories (no new patterns)
+- Bug fixes that don't change architecture
+- Style tweaks within existing SCSS modules
+- Translation string additions to existing namespaces
+- Content changes in existing files

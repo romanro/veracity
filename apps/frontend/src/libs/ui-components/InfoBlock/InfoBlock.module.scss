@@ -1,0 +1,40 @@
+.bg_gradient_1 {
+  background: linear-gradient(157.39deg, var(--gradient-1-from) 2.08%, var(--gradient-1-to) 98.46%);
+
+  @supports (color: color(display-p3 1 1 1)) {
+    background: linear-gradient(157.39deg, var(--gradient-1-from-p3) 2.08%, var(--gradient-1-to-p3) 98.46%);
+  }
+}
+
+.bg_gradient_2 {
+  background: linear-gradient(157.39deg, var(--gradient-2-from) 2.08%, var(--gradient-2-to) 98.46%);
+
+  @supports (color: color(display-p3 1 1 1)) {
+    background: linear-gradient(157.39deg, var(--gradient-2-from-p3) 2.08%, var(--gradient-2-to-p3) 98.46%);
+  }
+}
+
+.bg_gradient_3 {
+  background: linear-gradient(157.39deg, var(--gradient-3-from) 2.08%, var(--gradient-3-to) 98.46%);
+
+  @supports (color: color(display-p3 1 1 1)) {
+    background: linear-gradient(157.39deg, var(--gradient-3-from-p3) 2.08%, var(--gradient-3-to-p3) 98.46%);
+  }
+}
+
+.block {
+  border-radius: 1rem;
+  padding: 1.2rem;
+  color: var(--color-text-inverse);
+  height: 100%;
+  min-height: 280px;
+  max-height: 320px;
+  min-width: 280px;
+  max-width: 320px;
+
+  h3 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: 0.7rem;
+  }
+}

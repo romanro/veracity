@@ -1,0 +1,44 @@
+.container {
+  padding: 1rem 1.25rem !important;
+}
+
+.header {
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  color: var(--color-neutral-600);
+  margin-bottom: 0.75rem;
+}
+
+.segmentBar {
+  display: flex;
+  gap: 5px;
+  height: 25px;
+  align-items: center;
+}
+
+.segment {
+  flex: 1;
+  height: 100%;
+  border-radius: 3px;
+  transition: opacity 0.3s ease;
+
+  &.orangeFilled {
+    background: var(--color-orange-300);
+    opacity: 1;
+  }
+
+  &.orangeUnfilled {
+    background: var(--color-orange-300);
+    opacity: 0.3;
+  }
+
+  &.greenFilled {
+    background: var(--color-success-300);
+    opacity: 1;
+  }
+
+  &.greenUnfilled {
+    background: var(--color-success-300);
+    opacity: 0.3;
+  }
+}

@@ -1,0 +1,49 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+
+  .label {
+    flex: 1;
+    display: block;
+    position: relative;
+    border: 2px solid transparent;
+    transition: border 0.2s ease;
+    border-radius: 1rem;
+    padding: 2px;
+
+    .searchIcon {
+      position: absolute;
+      color: var(--color-neutral-400);
+      top: calc(0.5rem + 3px);
+      left: 0.8rem;
+    }
+
+    &:has(.input:focus) {
+      border: 2px solid var(--color-text-primary);
+    }
+    .input {
+      width: 100%;
+      display: block;
+      background-color: var(--color-tertiary-bg);
+      padding: 0.5rem;
+      border-radius: 0.8rem;
+      border: 1px solid var(--color-tertiary-pressed);
+
+      &.hasIcon {
+        padding-left: 2.8rem;
+      }
+
+      &:focus {
+        outline: 0;
+      }
+    }
+    .clearButton {
+      position: absolute;
+      top: calc(0.8rem + 5px);
+      right: 0.8rem;
+    }
+  }
+}

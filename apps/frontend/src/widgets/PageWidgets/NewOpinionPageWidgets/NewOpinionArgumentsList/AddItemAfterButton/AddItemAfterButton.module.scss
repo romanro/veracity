@@ -1,0 +1,21 @@
+.toolbutton {
+  cursor: pointer;
+  position: absolute;
+  background: var(--color-neutral-400);
+  top: 44px;
+  left: 4px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-gray-warm-50);
+  border-radius: 50%;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 0.12s;
+
+  &:hover {
+    background: var(--color-neutral-700);
+  }
+}

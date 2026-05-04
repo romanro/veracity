@@ -1,0 +1,17 @@
+.appLogo {
+  display: inline-flex;
+  flex: 1;
+  align-items: center;
+  gap: 0.6rem;
+
+  img {
+    display: block;
+  }
+
+  .name {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-primary);
+    line-height: 1;
+  }
+}

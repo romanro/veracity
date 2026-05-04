@@ -1,0 +1,23 @@
+.conteinerInput {
+  background-color: var(--color-tertiary-bg);
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 1rem;
+}
+
+.titleText {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  text-align: left;
+}
+
+.containerText {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}

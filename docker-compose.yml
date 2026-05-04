@@ -1,0 +1,39 @@
+# Local development orchestration. Postgres is provisioned now even though
+# Phase 01 doesn't use it — keeps the dev stack stable across phases.
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: cyberpravda
+      POSTGRES_PASSWORD: cyberpravda
+      POSTGRES_DB: cyberpravda
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cyberpravda -d cyberpravda"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      HOST: 0.0.0.0
+      LOG_LEVEL: info
+      DATABASE_URL: postgres://cyberpravda:cyberpravda@postgres:5432/cyberpravda
+    ports:
+      - "3001:3001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres-data:

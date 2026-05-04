@@ -1,0 +1,19 @@
+#
+- block:
+    - name: Find current git release
+      shell: |
+        git name-rev --name-only HEAD | tr -c '[:alnum:]\n' _
+      register: cron_backup_suffix
+      args:
+        chdir: /srv/cyberpravda/Relap
+
+    - name: Set up cron
+      shell: |
+        crontab -l > backup_crontab_{{cron_backup_suffix.stdout}}
+        crontab < ./cyberpravda/{{ cron_file }}
+        find . -type f -name "backup_crontab_*" -mtime +14 -delete
+      args:
+        chdir: /srv/cyberpravda
+
+  tags: ['cron']
+  when: cron_file|default(None) != None

@@ -1,0 +1,20 @@
+// Text-specific styles only - base styles are in NodeBase.module.scss
+.textLeaf {
+  .text {
+    font-size: var(--font-size-sm);
+  }
+
+  .textarea {
+    width: 100%;
+    min-height: 70px;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .imagePreview {
+    margin-top: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+}

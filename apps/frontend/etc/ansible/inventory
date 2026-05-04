@@ -1,0 +1,10 @@
+# ALL
+[build]
+cyberpravda.dev ansible_user=service-manager ansible_port=2242 
+
+[cyberpravda:children]
+cyberpravda_dev
+
+# this is `public` dev. developer's devs should be treated differently...
+[cyberpravda_dev]
+cyberpravda.dev cron_file=etc/crontabs/dev

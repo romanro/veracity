@@ -1,0 +1,12 @@
+.cardArgumentSearch {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  cursor: grab;
+  user-select: none;
+  &:hover {
+    background-color: var(--color-light-200);
+  }
+}

@@ -1,0 +1,36 @@
+.dragHandle {
+  position: absolute;
+  top: 7px;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-gray-warm-50);
+  border: none;
+  opacity: 0;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+  z-index: 10;
+
+  &:hover {
+    background: var(--color-gray-warm-100);
+    border-color: var(--color-gray-warm-300);
+  }
+
+  &.dragging {
+    opacity: 1;
+    background: var(--color-blue-100);
+    border-color: var(--color-blue-300);
+  }
+
+  svg {
+    color: var(--color-gray-warm-600);
+  }
+}
+
+// Show handle on parent hover
+:global(.node-container):hover .dragHandle {
+  opacity: 1;
+}

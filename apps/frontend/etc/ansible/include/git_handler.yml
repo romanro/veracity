@@ -1,0 +1,12 @@
+- name: Git handler
+  delegate_to: "{{ build_host }}"
+  block:
+    - name: "Update git repo to {{ update_version }}"
+      ansible.builtin.git:
+        repo: "{{ git_repo }}"
+        dest: "{{ git_dest }}"
+        version: "{{ update_version }}"
+        force: true
+      register: cyberpravda_git
+      changed_when: cyberpravda_git.changed
+      failed_when: cyberpravda_git.failed
